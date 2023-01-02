@@ -1,0 +1,18 @@
+[
+  {
+    "tokenName": "TEST0",
+    "Symbol": "TXT",
+    "contractAddress": "0x8b65E3846BDecfD20b3a767A5C9C526B63dE6212",
+    "company": "Gensis pvt limited",
+    "deployedOn": "polygon",
+    "decimal": "18"
+  },
+  {
+    "tokenName": "TEST1",
+    "Symbol": "TXT1",
+    "contractAddress": "0x8b65E3846BDecfD20b3a767A5C9C526B63dE6212",
+    "company": "Gensis pvt limited",
+    "deployedOn": "goerli",
+    "decimal": "18"
+  }
+]
