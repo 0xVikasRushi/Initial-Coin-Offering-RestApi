@@ -3,15 +3,15 @@ const mongoose = require("mongoose");
 const ContractSchema = new mongoose.Schema({
   tokenName: {
     type: String,
-    required: true,
+    required: [true,"token name must be provided"],
   },
   Symbol: {
     type: String,
-    required: [true, "Enter the Symbol"],
+    required: [true, "token Symbol must be provided"],
   },
   contractAddress: {
     type: String,
-    required: [true, "Contract Address"],
+    required: [true, "Contract Address must be provided"],
   },
   company: {
     type: String,
@@ -22,7 +22,7 @@ const ContractSchema = new mongoose.Schema({
       values: [
         "polygon",
         "ethereum",
-        "Binance Smart Chain Mainnet",
+        "binance-smartchain",
         "polygon-mumbai",
         "goerli",
       ],

@@ -12,3 +12,4 @@ const Contract1 = new Contract({
 });
 
 Contract1.save();
+
