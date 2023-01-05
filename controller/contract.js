@@ -1,7 +1,34 @@
 const Contract = require("./../models/contract.js");
 const { db } = require("./../models/contract.js");
+
 const getAllContracts = async (req, res) => {
-  res.status(200).json({ msg: "Working getAllContract" });
+  const { featured, company } = req.query;
+
+  const queryObj = {};
+  if (featured) {
+    queryObj.featured = featured === "true" ? true : false;
+  }
+  if (company) {
+    queryObj.company = company
+  }
+  
+  try {
+    const contract = await Contract.find(query);
+    const nbhints = contract.length;
+    let message = nbhints === 0 ? "no results found" : contract;
+    res.status(201).json({ msg: message, nbhints });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
+};
+
+const getAllContractsTesting = async (req, res) => {
+  try {
+    const contract = await Contract.find({ decimal: 18 });
+    res.status(200).json({ msg: contract });
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
 };
 
 const insertContract = (req, res) => {
@@ -12,10 +39,6 @@ const insertContract = (req, res) => {
     .catch((error) => {
       res.status(500).json({ msg: error });
     });
-};
-
-const getAllContractsTesting = async (req, res) => {
-  res.status(200).json({ msg: "Working getAllContractsTesting" });
 };
 
 module.exports = { getAllContracts, insertContract, getAllContractsTesting };
