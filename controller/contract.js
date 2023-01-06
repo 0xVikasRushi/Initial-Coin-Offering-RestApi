@@ -3,7 +3,8 @@ const { db } = require("./../models/contract.js");
 
 const getAllContracts = async (req, res) => {
   try {
-    // ? sort?=+name,createdAt
+    // {{url}}/api/v1/contracts/?sort=+decimal
+    // {{url}}/api/v1/contraccts/?company=something&Symbol=TXT
     const queryObj = {};
     const {
       company,
@@ -16,7 +17,9 @@ const getAllContracts = async (req, res) => {
       sort,
     } = req.query;
 
-    if (company) queryObj.company = company;
+    if (company) {
+      queryObj.company = { $regex: company, $options: "i" };
+    }
     if (tokenName) {
       queryObj.tokenName = { $regex: tokenName, $options: "i" };
     }
