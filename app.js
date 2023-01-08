@@ -13,7 +13,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-  res.send("testing rest api");
+  res.status(200).json({ msg: "welcome to ico REST api" });
 });
 
 app.use("/api/v1/contracts", routes_router);
