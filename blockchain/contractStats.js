@@ -17,7 +17,7 @@ async function contractStats(contractAddress) {
   const symbol = await Contract.symbol();
   if (symbol) ContractObj.symbol = symbol;
 
-  console.log(ContractObj);
+  // console.log(ContractObj);
   return ContractObj;
 }
 module.exports = contractStats;

@@ -1,10 +1,11 @@
 const Contract = require("./../models/contract.js");
 const { db } = require("./../models/contract.js");
-
+const contractStats = require("./../blockchain/contractStats.js");
 const getAllContracts = async (req, res) => {
   try {
     // {{url}}/api/v1/contracts/?sort=+decimal
     // {{url}}/api/v1/contraccts/?company=something&Symbol=TXT
+    // {{url}}/api/v1/contracts/getContractInfo?address=0x
     const queryObj = {};
     const {
       company,
@@ -93,4 +94,15 @@ const insertContract = (req, res) => {
     });
 };
 
-module.exports = { getAllContracts, insertContract, getAllContractsTesting };
+const getContractInfo = async (req, res) => {
+  const { address } = req.query;
+  const infojson = await contractStats(address);
+  res.status(200).json({ msg: infojson });
+};
+
+module.exports = {
+  getAllContracts,
+  getContractInfo,
+  insertContract,
+  getAllContractsTesting,
+};
