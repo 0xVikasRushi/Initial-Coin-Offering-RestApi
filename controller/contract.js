@@ -1,7 +1,6 @@
 const Contract = require("./../models/contract.js");
 const { db } = require("./../models/contract.js");
 const contractStats = require("./../blockchain/contractStats.js");
-const getAbi = require("../blockchain/getAbi.js");
 const getAllContracts = async (req, res) => {
   try {
     // {{url}}/api/v1/contracts/?sort=+decimal
@@ -95,21 +94,6 @@ const getAllContractsTesting = async (req, res) => {
 //     });
 // };
 
-// const insertContract = async (req, res) => {
-//   let { contractAddress, abi } = req.body;
-//   if (abi === "undefined") {
-//     const newabi = await getAbi(contractAddress);
-//     req.body.abi = newabi;
-//   }
-//   const contract = new Contract(req.body);
-//   db.collection("contracts")
-//     .insertOne(contract)
-//     .then((result) => res.status(201).json({ msg: contract, result }))
-//     .catch((error) => {
-//       res.status(500).json({ msg: error });
-//     });
-// };
-
 const insertContract = async (req, res) => {
   const { address } = req.query;
   const blockchaininfo = await contractStats(address);
@@ -117,6 +101,7 @@ const insertContract = async (req, res) => {
   // symbol
   // network
   // address
+  // owner
   // fetching infomation of contractAddress
   const contract = new Contract(blockchaininfo);
   db.collection("contracts")
@@ -132,6 +117,15 @@ const getContractInfo = async (req, res) => {
   const infojson = await contractStats(address);
   res.status(200).json({ msg: infojson });
 };
+
+// const deleteContractInfo = async () => {
+//   const contract = db.collection("contracts");
+//   const query = {
+//     contractAddress: { $regex: "0xdAC17F958D2ee523a2206206994597C13D831ec7" },
+//   };
+//   const result = await contract.deleteMany(query);
+//   console.log("success");
+// };
 
 module.exports = {
   getAllContracts,
