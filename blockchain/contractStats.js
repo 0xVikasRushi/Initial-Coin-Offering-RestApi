@@ -12,10 +12,11 @@ async function contractStats(contractAddress) {
   const Contract = new ethers.Contract(contractAddress, abi, provider);
 
   const name = await Contract.name();
-  if (name) ContractObj.name = name;
+  if (name) ContractObj.tokenName = name;
 
   const symbol = await Contract.symbol();
-  if (symbol) ContractObj.symbol = symbol;
+  if (symbol) ContractObj.Symbol = symbol;
+  if (abi) ContractObj.abi = abi;
 
   // console.log(ContractObj);
   return ContractObj;

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const ContractSchema = new mongoose.Schema({
   tokenName: {
     type: String,
-    required: [true,"token name must be provided"],
+    required: [true, "token name must be provided"],
   },
   Symbol: {
     type: String,
@@ -40,7 +40,10 @@ const ContractSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  abi: {
+    type: String,
+    default: "new",
+  },
 });
 
-
-module.exports = mongoose.model("Contract",ContractSchema)
+module.exports = mongoose.model("Contract", ContractSchema);

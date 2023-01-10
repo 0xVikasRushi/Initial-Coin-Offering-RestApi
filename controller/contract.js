@@ -1,12 +1,13 @@
 const Contract = require("./../models/contract.js");
 const { db } = require("./../models/contract.js");
 const contractStats = require("./../blockchain/contractStats.js");
+const getAbi = require("../blockchain/getAbi.js");
 const getAllContracts = async (req, res) => {
   try {
     // {{url}}/api/v1/contracts/?sort=+decimal
     // {{url}}/api/v1/contraccts/?company=something&Symbol=TXT
     // {{url}}/api/v1/contracts/getContractInfo?address=0x
-    const queryObj = {};
+    let queryObj = {};
     const {
       company,
       tokenName,
@@ -46,7 +47,7 @@ const getAllContracts = async (req, res) => {
 
 const getAllContractsTesting = async (req, res) => {
   try {
-    const queryObj = {};
+    let queryObj = {};
 
     const {
       company,
@@ -84,11 +85,43 @@ const getAllContractsTesting = async (req, res) => {
   }
 };
 
-const insertContract = (req, res) => {
-  const contract = new Contract(req.body);
+// const insertContract = (req, res) => {
+//   const contract = new Contract(req.body);
+//   db.collection("contracts")
+//     .insertOne(contract)
+//     .then((result) => res.status(201).json(result))
+//     .catch((error) => {
+//       res.status(500).json({ msg: error });
+//     });
+// };
+
+// const insertContract = async (req, res) => {
+//   let { contractAddress, abi } = req.body;
+//   if (abi === "undefined") {
+//     const newabi = await getAbi(contractAddress);
+//     req.body.abi = newabi;
+//   }
+//   const contract = new Contract(req.body);
+//   db.collection("contracts")
+//     .insertOne(contract)
+//     .then((result) => res.status(201).json({ msg: contract, result }))
+//     .catch((error) => {
+//       res.status(500).json({ msg: error });
+//     });
+// };
+
+const insertContract = async (req, res) => {
+  const { address } = req.query;
+  const blockchaininfo = await contractStats(address);
+  // name
+  // symbol
+  // network
+  // address
+  // fetching infomation of contractAddress
+  const contract = new Contract(blockchaininfo);
   db.collection("contracts")
     .insertOne(contract)
-    .then((result) => res.status(201).json(result))
+    .then((result) => res.status(201).json({ msg: contract, result }))
     .catch((error) => {
       res.status(500).json({ msg: error });
     });
