@@ -13,6 +13,10 @@ const ContractSchema = new mongoose.Schema({
     type: String,
     required: [true, "Contract Address must be provided"],
   },
+  contractCreator: {
+    type: String,
+    required: [true],
+  },
   company: {
     type: String,
   },
@@ -42,7 +46,6 @@ const ContractSchema = new mongoose.Schema({
   },
   abi: {
     type: String,
-    default: "new",
   },
 });
 
