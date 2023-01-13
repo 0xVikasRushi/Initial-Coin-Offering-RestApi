@@ -1,5 +1,3 @@
-# intial Coin offerning rest-api
-
 
 ## Installation
 
@@ -17,18 +15,37 @@
   GET /api/v1/contracts/
 ```
 
-#### Get contracts info 
+#### Get contracts info - sample examples
 
 ```http
-  GET /api/v1/contracts/getContractInfo?address=query
+  GET /api/v1/contracts/?tokenName=TEST&deployedOn=mumbai&sort=+decimal
+
+  GET /api/v1/contracts/?sort=+decimal
+
+  GET /api/v1/contracts/?company=gensis&deployedOn=polygon
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `tokenName`      | `string` | **match similar strings**|
+| `Symbol`      | `string` | **match exact string**|
+| `company`      | `string` | **match similar strings**|
+| `contactAddress`      | `string` | **match exact string**|
+| `deployedOn`      | `string` | **match exact string**|
+| `sort`      | `string` |  **Required to give sign to sort + or -**|
+
+
+
+#### Post Contract info
+
+
+```http
+  POST /api/v1/contracts/address=CONTRACTADRESS
 ```
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `address`      | `string` | **Required**.|
-
-
-
 
 ## Environment Variables
 
