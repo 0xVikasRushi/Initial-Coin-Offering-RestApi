@@ -17,6 +17,19 @@ const ContractSchema = new mongoose.Schema({
     type: String,
     required: [true],
   },
+  contractType: {
+    type: String,
+    enum: {
+      values: [
+        "Minted-Crowdsale",
+        "Allowance-Crowdsale",
+        "Whitelisted-Crowdsale",
+        "Capped-Crowdsale",
+        "Timed-Crowdsale",
+      ],
+      message: `{contractType} is not supported`,
+    },
+  },
   company: {
     type: String,
   },
